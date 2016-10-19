@@ -79,14 +79,14 @@ import { HeroService } from './hero.service';
     constructor(private heroService: HeroService) { }
 
     getHeroes(): void {
-      this.heroes = this.heroService.getHeroes();
-    }
-
-    onSelect(hero: Hero): void {
-      this.selectedHero = hero;
+      this.heroService.getHeroes().then(heroes => this.heroes = heroes);
     }
 
     ngOnInit(): void {
       this.getHeroes();
+    }
+
+    onSelect(hero: Hero): void {
+      this.selectedHero = hero;
     }
   }
