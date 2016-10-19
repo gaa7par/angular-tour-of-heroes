@@ -27,6 +27,7 @@ const HEROES: Hero[] = [
         {{hero.name}}
       </li>
     </ul>
+    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
   `,
 
   styles: [`
