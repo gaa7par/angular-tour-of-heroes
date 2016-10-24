@@ -8,7 +8,8 @@ import { Hero } from './hero';
 @Injectable()
 export class HeroService {
   private heroesUrl = 'app/heroes';
-  
+  private headers = new Headers({'Content-Type': 'application/json'});
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
@@ -24,5 +25,13 @@ export class HeroService {
   }
   getHero(id: number): Promise<Hero> {
     return this.getHeroes().then(heroes => heroes.find(hero => hero.id === id));
+  }
+
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), {headers: this.headers}).toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
   }
 }
